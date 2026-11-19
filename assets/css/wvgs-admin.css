@@ -1,0 +1,114 @@
+/* ----------------------------------------------------
+
+Variation Gallery & Swatches Admin Styles
+
+---------------------------------------------------- */
+
+/* Variation Gallery Grid */
+.wvgs-variation-gallery-wrapper {
+padding-top: 10px;
+border-top: 1px solid #eee;
+margin-top: 10px;
+}
+
+.wvgs-variation-gallery-images {
+margin: 0;
+padding: 0;
+display: flex;
+flex-wrap: wrap;
+gap: 10px;
+}
+
+.wvgs-variation-gallery-images li.image {
+width: 80px;
+height: 80px;
+position: relative;
+box-shadow: 0 0 0 1px #e5e5e5;
+background: #f7f7f7;
+cursor: move;
+}
+
+.wvgs-variation-gallery-images li.image img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+
+.wvgs-variation-gallery-images li.image .delete {
+position: absolute;
+top: -8px;
+right: -8px;
+width: 20px;
+height: 20px;
+background: #fff;
+border-radius: 50%;
+box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+display: none;
+align-items: center;
+justify-content: center;
+color: #d63638;
+text-decoration: none;
+}
+
+.wvgs-variation-gallery-images li.image:hover .delete {
+display: flex;
+}
+
+.wvgs-variation-gallery-images li.image .delete .dashicons {
+font-size: 14px;
+width: 14px;
+height: 14px;
+}
+
+/* Product Data Tab UI */
+#wvgs_swatches_data .options_group {
+padding: 10px 0;
+}
+
+.wvgs-attributes-swatch-config {
+border-top: 1px solid #eee;
+margin-top: 15px;
+}
+
+.wvgs-attr-accordion {
+border: 1px solid #e5e5e5;
+margin: 10px 12px;
+background: #fff;
+}
+
+.wvgs-attr-header {
+margin: 0;
+padding: 10px 15px;
+background: #f9f9f9;
+border-bottom: 1px solid #eee;
+cursor: pointer;
+}
+
+.wvgs-attr-body {
+padding: 15px;
+}
+
+.wvgs-terms-table th {
+text-align: left;
+padding: 8px;
+border-bottom: 1px solid #eee;
+}
+
+.wvgs-terms-table td {
+padding: 8px;
+vertical-align: middle;
+}
+
+.wvgs-mini-gallery {
+display: flex;
+align-items: center;
+gap: 10px;
+}
+
+/* Term Meta Screen */
+.wvgs-term-image-preview img {
+max-width: 150px;
+height: auto;
+box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+border-radius: 3px;
+}
