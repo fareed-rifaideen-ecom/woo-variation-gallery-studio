@@ -1,0 +1,714 @@
+/
+
+Woo Variation & Gallery Studio (Flatsome Edition) — Frontend Stylesheet
+
+Styles:
+
+Design Tokens & Hidden Native WooCommerce Select Synchronization
+
+Single Product Page (PDP) & Flatsome Quick View Swatches (All 6 Types)
+
+Out-of-Stock / Unavailable Combination Indicators (Cross, Blur, Hide)
+
+Accessible Text & Image Tooltips
+
+Flatsome Flickity Gallery Transitions & Interactive Video Slide Player
+
+Flatsome Shop Archive Card Swatches, +N Overflow Pill & Slideshow Progress Bar
+
+Responsive Mobile & Reduced-Motion Accessibility Overrides
+
+@package WooVariationGalleryStudio
+*/
+
+/* ==========================================================================
+
+Design Tokens & Native Select Sync
+========================================================================== */
+
+:root {
+--wvgs-border-color: rgba(0, 0, 0, 0.16);
+--wvgs-border-hover: rgba(0, 0, 0, 0.45);
+--wvgs-border-selected: #111111;
+--wvgs-focus-ring: #111111;
+--wvgs-button-bg: #f6f6f6;
+--wvgs-button-text: #222222;
+--wvgs-button-selected-bg: #111111;
+--wvgs-button-selected-text: #ffffff;
+--wvgs-oos-cross-color: #d63638;
+--wvgs-tooltip-bg: #1a1a1a;
+--wvgs-tooltip-text: #ffffff;
+--wvgs-archive-swatch-size: 20px;
+--wvgs-progress-bar-color: rgba(17, 17, 17, 0.78);
+}
+
+/* Keep native WooCommerce  visually hidden while remaining interactive for WC JS */
+select[data-wvgs-select="1"] {
+display: none !important;
+}
+
+/* ==========================================================================
+2. Single Product Page (PDP) & Flatsome Quick View Swatches
+========================================================================== */
+
+.wvgs-swatches-wrapper {
+display: block;
+margin: 4px 0 8px;
+}
+
+.wvgs-swatches {
+margin: 0 !important;
+padding: 0 !important;
+list-style: none !important;
+display: flex;
+flex-wrap: wrap;
+align-items: center;
+gap: 8px;
+}
+
+.wvgs-swatch-item {
+position: relative;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+margin: 0 !important;
+padding: 2px;
+cursor: pointer;
+box-sizing: border-box;
+border: 2px solid transparent;
+border-radius: var(--wvgs-swatch-radius, 4px);
+background: transparent;
+user-select: none;
+-webkit-tap-highlight-color: transparent;
+transition: border-color 0.18s ease, transform 0.15s ease, opacity 0.18s ease, box-shadow 0.18s ease;
+}
+
+.wvgs-swatch-item:hover:not(.disabled):not([aria-disabled="true"]) {
+border-color: var(--wvgs-border-hover);
+}
+
+.wvgs-swatch-item.selected {
+border-color: var(--wvgs-border-selected);
+}
+
+.wvgs-swatch-item:focus-visible {
+outline: 2px solid var(--wvgs-focus-ring);
+outline-offset: 2px;
+}
+
+/* Shape Modifiers */
+.wvgs-shape-circle .wvgs-swatch-item,
+.wvgs-shape-circle .wvgs-swatch-color,
+.wvgs-shape-circle .wvgs-swatch-image {
+border-radius: 50%;
+}
+
+.wvgs-shape-rounded .wvgs-swatch-item {
+border-radius: 6px;
+}
+
+.wvgs-shape-rounded .wvgs-swatch-color,
+.wvgs-shape-rounded .wvgs-swatch-image,
+.wvgs-shape-rounded .wvgs-swatch-button {
+border-radius: 4px;
+}
+
+.wvgs-shape-square .wvgs-swatch-item,
+.wvgs-shape-square .wvgs-swatch-color,
+.wvgs-shape-square .wvgs-swatch-image,
+.wvgs-shape-square .wvgs-swatch-button {
+border-radius: 0;
+}
+
+/* Color & Dual-Color Swatches */
+.wvgs-swatch-item .wvgs-swatch-color {
+display: block;
+width: var(--wvgs-swatch-size, 34px);
+height: var(--wvgs-swatch-size, 34px);
+border: 1px solid var(--wvgs-border-color);
+box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+box-sizing: border-box;
+}
+
+/* Image & Auto-Variation Image Swatches */
+.wvgs-swatch-item .wvgs-swatch-image {
+display: block;
+width: var(--wvgs-swatch-size, 34px);
+height: var(--wvgs-swatch-size, 34px);
+overflow: hidden;
+border: 1px solid var(--wvgs-border-color);
+background: #f8f8f8;
+box-sizing: border-box;
+}
+
+.wvgs-swatch-item .wvgs-swatch-image img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+display: block;
+margin: 0;
+}
+
+/* Button / Label Swatches */
+.wvgs-swatch-item.wvgs-item-type-button {
+padding: 0;
+border: 1px solid var(--wvgs-border-color);
+background: var(--wvgs-button-bg);
+}
+
+.wvgs-swatch-item.wvgs-item-type-button:hover:not(.disabled):not([aria-disabled="true"]) {
+border-color: var(--wvgs-border-hover);
+}
+
+.wvgs-swatch-item.wvgs-item-type-button .wvgs-swatch-button {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+min-width: var(--wvgs-swatch-size, 34px);
+min-height: var(--wvgs-swatch-size, 34px);
+padding: 6px 12px;
+font-size: 13px;
+font-weight: 500;
+line-height: 1.2;
+color: var(--wvgs-button-text);
+box-sizing: border-box;
+transition: background-color 0.18s ease, color 0.18s ease;
+}
+
+.wvgs-swatch-item.wvgs-item-type-button.selected {
+border-color: var(--wvgs-button-selected-bg);
+background: var(--wvgs-button-selected-bg);
+}
+
+.wvgs-swatch-item.wvgs-item-type-button.selected .wvgs-swatch-button {
+color: var(--wvgs-button-selected-text);
+}
+
+/* Keep circle shape readable for button/pill labels */
+.wvgs-shape-circle .wvgs-swatch-item.wvgs-item-type-button,
+.wvgs-shape-circle .wvgs-swatch-item.wvgs-item-type-button .wvgs-swatch-button {
+border-radius: 999px;
+}
+
+/* Radio Swatches */
+.wvgs-type-radio .wvgs-swatches {
+gap: 10px 16px;
+}
+
+.wvgs-swatch-item.wvgs-item-type-radio {
+padding: 4px 6px;
+border: 0;
+border-radius: 4px;
+}
+
+.wvgs-swatch-radio {
+display: inline-flex;
+align-items: center;
+gap: 8px;
+font-size: 13.5px;
+line-height: 1.3;
+color: var(--wvgs-button-text);
+}
+
+.wvgs-radio-dot {
+position: relative;
+display: inline-block;
+width: 16px;
+height: 16px;
+flex: 0 0 16px;
+border-radius: 50%;
+border: 2px solid var(--wvgs-border-hover);
+box-sizing: border-box;
+transition: border-color 0.18s ease;
+}
+
+.wvgs-swatch-item.wvgs-item-type-radio.selected .wvgs-radio-dot {
+border-color: var(--wvgs-border-selected);
+}
+
+.wvgs-swatch-item.wvgs-item-type-radio.selected .wvgs-radio-dot::after {
+content: "";
+position: absolute;
+top: 50%;
+left: 50%;
+width: 8px;
+height: 8px;
+border-radius: 50%;
+background: var(--wvgs-border-selected);
+transform: translate(-50%, -50%);
+}
+
+/* Flatsome Quick View compact spacing */
+.product-quick-view-container .wvgs-swatches-wrapper {
+margin: 2px 0 6px;
+}
+
+.product-quick-view-container .wvgs-swatches {
+gap: 6px;
+}
+
+/* ==========================================================================
+3. Out-of-Stock / Unavailable Combination Indicators
+========================================================================== */
+
+.wvgs-swatch-item.disabled,
+.wvgs-swatch-item[aria-disabled="true"] {
+cursor: not-allowed;
+opacity: 0.42;
+}
+
+/* Behavior: Cross Out (Default) */
+.wvgs-oos-cross .wvgs-swatch-item.disabled,
+.wvgs-oos-cross .wvgs-swatch-item[aria-disabled="true"] {
+overflow: hidden;
+}
+
+.wvgs-oos-cross .wvgs-swatch-item.disabled::after,
+.wvgs-oos-cross .wvgs-swatch-item[aria-disabled="true"]::after {
+content: "";
+position: absolute;
+top: 50%;
+left: -15%;
+width: 130%;
+height: 2px;
+background-color: var(--wvgs-oos-cross-color);
+transform: translateY(-50%) rotate(-38deg);
+z-index: 3;
+pointer-events: none;
+}
+
+/* Behavior: Blur & Dim (No Cross Line) */
+.wvgs-oos-blur .wvgs-swatch-item.disabled .wvgs-swatch-inner,
+.wvgs-oos-blur .wvgs-swatch-item[aria-disabled="true"] .wvgs-swatch-inner {
+filter: blur(1px) grayscale(65%);
+}
+
+/* Behavior: Hide Unavailable Options */
+.wvgs-oos-hide .wvgs-swatch-item.disabled,
+.wvgs-oos-hide .wvgs-swatch-item[aria-disabled="true"] {
+display: none !important;
+}
+
+/* ==========================================================================
+4. Accessible Text & Image Tooltips
+========================================================================== */
+
+.wvgs-has-tooltip .wvgs-tooltip {
+position: absolute;
+bottom: calc(100% + 9px);
+left: 50%;
+transform: translate(-50%, 4px);
+padding: 5px 9px;
+border-radius: 4px;
+background: var(--wvgs-tooltip-bg);
+color: var(--wvgs-tooltip-text);
+font-size: 11.5px;
+font-weight: 500;
+line-height: 1.3;
+white-space: nowrap;
+box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
+opacity: 0;
+visibility: hidden;
+pointer-events: none;
+z-index: 30;
+transition: opacity 0.16s ease, transform 0.16s ease, visibility 0.16s ease;
+}
+
+.wvgs-has-tooltip .wvgs-tooltip::after {
+content: "";
+position: absolute;
+top: 100%;
+left: 50%;
+transform: translateX(-50%);
+border-width: 5px 5px 0 5px;
+border-style: solid;
+border-color: var(--wvgs-tooltip-bg) transparent transparent transparent;
+}
+
+.wvgs-has-tooltip:hover .wvgs-tooltip,
+.wvgs-has-tooltip:focus-visible .wvgs-tooltip {
+opacity: 1;
+visibility: visible;
+transform: translate(-50%, 0);
+}
+
+/* Image Tooltip Variant */
+.wvgs-has-tooltip .wvgs-tooltip.wvgs-tooltip-image {
+padding: 5px;
+width: 96px;
+white-space: normal;
+text-align: center;
+}
+
+.wvgs-has-tooltip .wvgs-tooltip.wvgs-tooltip-image img {
+width: 86px;
+height: 86px;
+object-fit: cover;
+border-radius: 2px;
+display: block;
+margin: 0 auto 4px;
+}
+
+.wvgs-has-tooltip .wvgs-tooltip.wvgs-tooltip-image .wvgs-tooltip-caption {
+display: block;
+font-size: 11px;
+line-height: 1.25;
+}
+
+/* ==========================================================================
+5. Flatsome Flickity Gallery Transitions & Interactive Video Slides
+========================================================================== */
+
+.wvgs-gallery-transitioning {
+opacity: 0.72;
+transition: opacity 0.18s ease;
+}
+
+.wvgs-slide-has-video {
+position: relative;
+}
+
+.wvgs-video-play-btn {
+position: absolute !important;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+width: 60px;
+height: 60px;
+margin: 0 !important;
+padding: 0 !important;
+border: 2px solid rgba(255, 255, 255, 0.92) !important;
+border-radius: 50% !important;
+background: rgba(17, 17, 17, 0.72) !important;
+color: #ffffff !important;
+cursor: pointer;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+z-index: 12;
+box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.wvgs-video-play-btn:hover,
+.wvgs-video-play-btn:focus-visible {
+background: rgba(17, 17, 17, 0.92) !important;
+transform: translate(-50%, -50%) scale(1.08);
+outline: 2px solid #ffffff;
+outline-offset: 2px;
+}
+
+.wvgs-video-play-icon {
+display: block;
+width: 0;
+height: 0;
+margin-left: 4px;
+border-style: solid;
+border-width: 11px 0 11px 19px;
+border-color: transparent transparent transparent #ffffff;
+}
+
+/* Active Inline Video Player Container (MP4 / WebM / YouTube / Vimeo) */
+.wvgs-video-player-container {
+position: absolute;
+inset: 0;
+width: 100%;
+height: 100%;
+background: #000000;
+z-index: 15;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.wvgs-video-player-container .wvgs-video-iframe,
+.wvgs-video-player-container .wvgs-video-html5 {
+width: 100%;
+height: 100%;
+border: 0;
+object-fit: contain;
+background: #000000;
+display: block;
+}
+
+.wvgs-video-close-btn {
+position: absolute !important;
+top: 10px;
+right: 10px;
+width: 34px;
+height: 34px;
+margin: 0 !important;
+padding: 0 !important;
+border: 0 !important;
+border-radius: 50% !important;
+background: rgba(0, 0, 0, 0.72) !important;
+color: #ffffff !important;
+font-size: 20px;
+line-height: 1;
+cursor: pointer;
+z-index: 18;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+}
+
+.wvgs-video-close-btn:hover,
+.wvgs-video-close-btn:focus-visible {
+background: rgba(0, 0, 0, 0.95) !important;
+}
+
+/* Thumbnail Strip Video Indicator */
+.product-thumbnails .wvgs-thumb-has-video {
+position: relative;
+}
+
+.product-thumbnails .wvgs-thumb-video-icon {
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+width: 24px;
+height: 24px;
+border-radius: 50%;
+background: rgba(17, 17, 17, 0.72);
+border: 1.5px solid #ffffff;
+pointer-events: none;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.product-thumbnails .wvgs-thumb-video-icon::after {
+content: "";
+margin-left: 2px;
+border-style: solid;
+border-width: 4.5px 0 4.5px 8px;
+border-color: transparent transparent transparent #ffffff;
+}
+
+/* ==========================================================================
+6. Flatsome Shop Archive Swatches & 3-Mode Hover Slideshow
+========================================================================== */
+
+.wvgs-archive-swatches-hidden {
+display: none !important;
+}
+
+.wvgs-archive-swatches-wrapper {
+display: block;
+width: 100%;
+margin: 8px 0 2px;
+position: relative;
+z-index: 4;
+}
+
+.wvgs-archive-swatches {
+margin: 0 !important;
+padding: 0 !important;
+list-style: none !important;
+display: flex;
+flex-wrap: wrap;
+align-items: center;
+justify-content: center;
+gap: 6px;
+}
+
+/* Respect left-aligned Flatsome product card text layouts */
+.text-left .wvgs-archive-swatches {
+justify-content: flex-start;
+}
+
+.text-right .wvgs-archive-swatches {
+justify-content: flex-end;
+}
+
+.wvgs-archive-swatch-item {
+position: relative;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+margin: 0 !important;
+padding: 2px;
+cursor: pointer;
+box-sizing: border-box;
+border: 1.5px solid transparent;
+border-radius: var(--wvgs-swatch-radius, 4px);
+transition: border-color 0.16s ease, transform 0.15s ease;
+}
+
+.wvgs-archive-swatch-item:hover {
+border-color: var(--wvgs-border-hover);
+transform: translateY(-1px);
+}
+
+.wvgs-archive-swatch-item.selected {
+border-color: var(--wvgs-border-selected);
+}
+
+.wvgs-archive-swatch-item:focus-visible {
+outline: 2px solid var(--wvgs-focus-ring);
+outline-offset: 1px;
+}
+
+/* Shape parity on archive cards */
+.wvgs-archive-swatches-wrapper.wvgs-shape-circle .wvgs-archive-swatch-item,
+.wvgs-archive-swatches-wrapper.wvgs-shape-circle .wvgs-swatch-color,
+.wvgs-archive-swatches-wrapper.wvgs-shape-circle .wvgs-swatch-image {
+border-radius: 50%;
+}
+
+.wvgs-archive-swatches-wrapper.wvgs-shape-rounded .wvgs-archive-swatch-item {
+border-radius: 5px;
+}
+
+.wvgs-archive-swatches-wrapper.wvgs-shape-rounded .wvgs-swatch-color,
+.wvgs-archive-swatches-wrapper.wvgs-shape-rounded .wvgs-swatch-image,
+.wvgs-archive-swatches-wrapper.wvgs-shape-rounded .wvgs-swatch-button {
+border-radius: 3px;
+}
+
+.wvgs-archive-swatches-wrapper.wvgs-shape-square .wvgs-archive-swatch-item,
+.wvgs-archive-swatches-wrapper.wvgs-shape-square .wvgs-swatch-color,
+.wvgs-archive-swatches-wrapper.wvgs-shape-square .wvgs-swatch-image,
+.wvgs-archive-swatches-wrapper.wvgs-shape-square .wvgs-swatch-button {
+border-radius: 0;
+}
+
+/* Compact Archive Color, Dual-Color & Image Swatches */
+.wvgs-archive-swatch-item .wvgs-swatch-color,
+.wvgs-archive-swatch-item .wvgs-swatch-image {
+display: block;
+width: var(--wvgs-archive-swatch-size, 20px);
+height: var(--wvgs-archive-swatch-size, 20px);
+border: 1px solid var(--wvgs-border-color);
+box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+box-sizing: border-box;
+overflow: hidden;
+}
+
+.wvgs-archive-swatch-item .wvgs-swatch-image img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+display: block;
+margin: 0;
+}
+
+/* Compact Archive Button Swatches */
+.wvgs-archive-swatch-item.wvgs-item-type-button {
+padding: 0;
+border: 1px solid var(--wvgs-border-color);
+background: var(--wvgs-button-bg);
+}
+
+.wvgs-archive-swatch-item.wvgs-item-type-button .wvgs-swatch-button {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+padding: 2px 6px;
+font-size: 11px;
+font-weight: 500;
+line-height: 1.3;
+color: var(--wvgs-button-text);
+}
+
+.wvgs-archive-swatch-item.wvgs-item-type-button.selected {
+border-color: var(--wvgs-button-selected-bg);
+background: var(--wvgs-button-selected-bg);
+}
+
+.wvgs-archive-swatch-item.wvgs-item-type-button.selected .wvgs-swatch-button {
+color: var(--wvgs-button-selected-text);
+}
+
+/* "+N" Overflow Pill Link */
+.wvgs-archive-swatch-more {
+margin: 0 !important;
+padding: 0 !important;
+display: inline-flex;
+align-items: center;
+}
+
+.wvgs-archive-swatch-more a {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+min-height: 22px;
+padding: 0 6px;
+font-size: 11px;
+font-weight: 600;
+line-height: 1;
+color: #555555;
+background: rgba(0, 0, 0, 0.05);
+border-radius: 999px;
+text-decoration: none;
+transition: background-color 0.16s ease, color 0.16s ease;
+}
+
+.wvgs-archive-swatch-more a:hover,
+.wvgs-archive-swatch-more a:focus-visible {
+background: #111111;
+color: #ffffff;
+}
+
+/* Flatsome Card Hover Slideshow & Smooth Image Crossfade */
+.product-small .box-image.wvgs-is-sliding .back-image {
+opacity: 0 !important;
+visibility: hidden !important;
+pointer-events: none;
+}
+
+.product-small .box-image img.wvgs-fade-swap {
+transition: opacity 0.25s ease;
+}
+
+.product-small .box-image img.wvgs-is-swapping {
+opacity: 0.45;
+}
+
+.wvgs-slideshow-progress {
+position: absolute;
+bottom: 0;
+left: 0;
+width: 0;
+height: 3px;
+background: var(--wvgs-progress-bar-color);
+z-index: 10;
+pointer-events: none;
+}
+
+/* ==========================================================================
+7. Mobile Touch Targets & Reduced-Motion Accessibility
+========================================================================== */
+
+@media screen and (max-width: 767px) {
+.wvgs-swatches {
+gap: 10px;
+}
+
+/* Ensure comfortable touch targets on mobile shop cards */
+.wvgs-archive-swatch-item .wvgs-swatch-color,
+.wvgs-archive-swatch-item .wvgs-swatch-image {
+	width: 24px;
+	height: 24px;
+}
+
+/* Prevent sticky hover tooltips on touchscreens */
+.wvgs-has-tooltip:hover .wvgs-tooltip {
+	opacity: 0;
+	visibility: hidden;
+}
+
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+.wvgs-swatch-item,
+.wvgs-archive-swatch-item,
+.wvgs-has-tooltip .wvgs-tooltip,
+.wvgs-video-play-btn,
+.product-small .box-image img.wvgs-fade-swap,
+.wvgs-slideshow-progress {
+transition: none !important;
+}
+}
